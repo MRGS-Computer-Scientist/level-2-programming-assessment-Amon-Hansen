@@ -7,6 +7,9 @@ window = Tk()
 window. geometry(str(w_width) + "x" +str(w_height))
 window. title("My App")
 
+bottom_frame = Frame(background='grey', width=w_width, height=100)
+bottom_frame.pack()    
+
 main_frame = Frame(background="orange", width=w_width, height=w_height)        
 main_frame.pack()
 
