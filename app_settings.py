@@ -1,6 +1,6 @@
 w_width = 500
 w_height = 700
 
-app_title = "VisionPass"
+app_title = "My App"
 
-bg_color = "#E7DFF"
+bg_color = "#E7DDFF"
