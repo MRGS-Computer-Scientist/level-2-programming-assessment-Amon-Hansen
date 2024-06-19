@@ -1,90 +1,70 @@
-from tkinter import *
-from app_settings import * # type: ignore
-from os import *
-from tkinter import messagebox 
+import tkinter as tk
+from tkinter import messagebox
 
-root=Tk()
-root.title('Login')
-root.geometry('925x500+300+200')
-root.configure(bg="#fff")
-root.resizable(False,False)
+# Function to handle button click events
+def select_sport(sport):
+    messagebox.showinfo("Selection", f"You selected {sport}")
 
-def signin():
-    username=user.get()
-    password=code.get()
+# Create the main window
+root = tk.Tk()
+root.title("Sportify - Sports Career Selection")
+root.geometry("800x600")
+root.configure(bg='#f9f9f9')
 
-    if username=='admin' and password=='1234':
-        screen=Toplevel(root)
-        screen.title("App")
-        screen.geometry('925x500+300+200')
-        screen.config(bg="white")
+# Create a frame for the header
+header_frame = tk.Frame(root, bg='white')
+header_frame.pack(fill='x')
 
-        Label(screen,text='Hello!', bg='#fff',font=('Calibri(Body)',50,'bold')).pack(expand=True)
+# Add the title and navigation buttons to the header
+title_label = tk.Label(header_frame, text="Sportify", font=("Arial", 24), bg='white')
+title_label.pack(side='left', padx=10, pady=10)
 
-        screen.mainloop()
+nav_frame = tk.Frame(header_frame, bg='white')
+nav_frame.pack(side='right')
 
-    elif username!='admin' and password!='1234':
-        messagebox.showerror("Invalid", "invalid username and password")
+for text in ["Sports", "About", "Help", "Login"]:
+    nav_button = tk.Button(nav_frame, text=text, font=("Arial", 12), bg='white', relief='flat')
+    nav_button.pack(side='left', padx=5)
 
-    elif password!="1234":
-        messagebox.showerror("Invalid","invalid password")
+# Create the main content frame
+main_frame = tk.Frame(root, bg='#f9f9f9')
+main_frame.pack(expand=True, fill='both', padx=20, pady=20)
 
-    elif username!='admin':
-        messagebox.showerror("Invalid","invalid password")
+# Add the main title
+main_title = tk.Label(main_frame, text="Sports Career Selection", font=("Arial", 20), bg='#f9f9f9')
+main_title.pack(pady=10)
 
-img= PhotoImage(file='login.png')
-Label(root,image=img,bg="white").place(x=50,y=50)
+# Create a frame for the sports grid
+sports_frame = tk.Frame(main_frame, bg='#f9f9f9')
+sports_frame.pack()
 
-frame=Frame(root,width=350,height=350,bg="orange")
-frame.place(x=480,y=70)
+# List of sports
+sports = ["Basketball", "Football", "Rugby", "Cricket"]
 
-heading=Label(frame,text='Sign in', fg='#57a1f8',bg='white',font=('Microsoft YaHei UI Light',23,'bold'))
-heading.place (x=100,y=5)
+# Create buttons for each sport
+for i, sport in enumerate(sports):
+    frame = tk.Frame(sports_frame, bg='white', bd=1, relief='solid')
+    frame.grid(row=i // 2, column=i % 2, padx=10, pady=10)
+    
+    label = tk.Label(frame, text=sport, font=("Arial", 16), bg='white')
+    label.pack(pady=10)
+    
+    button = tk.Button(frame, text="Select", font=("Arial", 12), command=lambda s=sport: select_sport(s))
+    button.pack(pady=10)
 
-#########-----------------------------------------------------
+# Create a frame for the footer
+footer_frame = tk.Frame(root, bg='white')
+footer_frame.pack(fill='x', side='bottom', pady=10)
 
-def on_enter(e):
-    user.delete(0, 'end')
+footer_label = tk.Label(footer_frame, text="Sportify", font=("Arial", 14), bg='white')
+footer_label.pack(side='left', padx=10)
 
-def on_leave(e):
-    name=user.get()
-    if name=='':
-        user.insert(0,'Username')
+footer_nav_frame = tk.Frame(footer_frame, bg='white')
+footer_nav_frame.pack(side='right')
 
+for text in ["Topic", "Page", "Page", "Page"]:
+    footer_nav_button = tk.Button(footer_nav_frame, text=text, font=("Arial", 12), bg='white', relief='flat')
+    footer_nav_button.pack(side='left', padx=5)
 
-user = Entry(frame,width=25,fg='black',border=2,bg="white",font=('Microsoft YaHei UI Light',11,'bold'))
-user.place(x=30,y=80)
-user.insert(0,'Username')
-user.bind('<FocusIn>', on_enter)
-user.bind('<FocusOut>', on_leave)
-
-Frame(frame,width=295,height=2,bg='black').place(x=25,y=107)
-
-###########---------------------------------------------------
-
-def on_enter(e):
-    code.delete(0, 'end')
-
-def on_leave(e):
-    name=code.get()
-    if name=='':
-        code.insert(0,'Password')
-
-code = Entry(frame,width=25,fg='black',border=2,bg="white",font=('Microsoft YaHei UI Light',11,'bold'))
-code.place(x=30,y=150)
-code.insert(0,'Password')
-code.bind('<FocusIn>', on_enter)
-code.bind('<FocusOut>', on_leave)
-
-Frame(frame,width=295,height=2,bg='black').place(x=25,y=177)
-
-################################################################
-
-Button(frame,width=39,pady=7,text='Sign in',bg='#57a1f8',fg='white',border=0,command=signin).place(x=35,y=204)
-label=Label(frame,text="Don't have an account?",fg='black',bg='white',font=('Microsoft YaHei UI Light',9))
-label.place(x=75,y=270) 
-
-sign_up=Button(frame,width=6,text='Sign up',border=0,bg='white',cursor='hand2',fg='#57a1f8')
-sign_up.place(x=215,y=270)
-
+# Run the application
 root.mainloop()
